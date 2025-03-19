@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "../Navbar/Navbar";
 import Create from "../QuickCreateCard/Create";
 import Recent from "../RecentGenerations/Recent";
+import ImageGenerator from "../Generate/ImageGenerator";
 
 const Main = () => {
   const { isLoggedIn } = useContext(AuthContext);
@@ -45,6 +46,7 @@ const Main = () => {
               }
             />
             <Route path="/generate" Component={Generate} />
+            <Route path="/image" Component={ImageGenerator} />
           </>
         ) : (
           <>
