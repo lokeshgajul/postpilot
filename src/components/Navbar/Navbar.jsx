@@ -44,7 +44,7 @@ const Navbar = () => {
               </span>
             </section>
           </ul>
-          <ul className="flex flex-row space-x-1 items-center font-medium ">
+          <ul className="flex flex-row  items-center font-medium ">
             <li className="cursor-pointer">
               <Link
                 to="/generate"
@@ -54,31 +54,31 @@ const Navbar = () => {
               </Link>
             </li>
 
-            <div className="flex flex-row justify-center items-center py-1 rounded-md cursor-pointer focus:border-none">
+            <div className="flex flex-row justify-center items-center rounded-md cursor-pointer focus:border-none">
               {/* Show Name with Icon on Laptops and Hide on Mobile */}
-              <li className="cursor-pointer hover:text-gray-700 px-2 py-1 rounded-md text-[13.5px] text-gray-800 hidden sm:flex items-center">
+              <li className="cursor-pointer hover:text-gray-700  rounded-md text-[13.5px] text-gray-800 hidden sm:flex items-center">
                 <Menu placement="bottom-start ">
                   <Menu.Trigger
                     as={Button}
                     className={`${
                       theme == "dark" ? "text-white" : "text-black"
-                    } bg-transparent p-0 min-w-fit flex items-center gap-2 border-none cursor-pointer focus:outline-none focus:ring-0`}
+                    } min-w-fit flex items-center border-none shadow-none cursor-pointer focus:outline-none focus:ring-0`}
                   >
                     <CiUser size={25} width={4} />
                     <span
                       className={`${
                         theme == "dark" ? "text-white" : "text-black"
-                      } text-gray-800`}
+                      } pl-0.5 text-gray-800`}
                     >
                       Lokesh
                     </span>
                   </Menu.Trigger>
                   <MenuContent
-                    className={` py-4 px-3 bg-[#dde6ff] focus:outline-none focus:ring-0 border-transparent  `}
+                    className={`py-4 px-3 bg-[#dde6ff] focus:outline-none focus:ring-0 border-transparent shadow-none`}
                   >
                     <MenuItem
                       onClick={logoutUser}
-                      className=" cursor-pointer focus:outline-none focus:ring-0 border-none font-serif tracking-wider font-medium"
+                      className="cursor-pointer focus:outline-none focus:ring-0 border-none font-serif tracking-wider font-medium"
                     >
                       Logout
                     </MenuItem>

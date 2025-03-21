@@ -8,6 +8,7 @@ import Navbar from "../Navbar/Navbar";
 import Create from "../QuickCreateCard/Create";
 import Recent from "../RecentGenerations/Recent";
 import ImageGenerator from "../Generate/ImageGenerator";
+import Post from "../services/Post";
 
 const Main = () => {
   const { isLoggedIn } = useContext(AuthContext);
@@ -46,6 +47,7 @@ const Main = () => {
               }
             />
             <Route path="/generate" Component={Generate} />
+            <Route path="/post" Component={Post} />
             <Route path="/image" Component={ImageGenerator} />
           </>
         ) : (

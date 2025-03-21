@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import { generateImage, getPrompt } from "./Controller/PostController.js";
 import axios from "axios";
+import { prepareDb, storePost } from "./Db/Db.js";
 
 const app = express();
 const invokeUrl =
@@ -14,7 +15,8 @@ app.use(cors());
 app.use(express.json());
 
 app.post("/getPrompt", getPrompt);
-// app.post("/generateImage", generateImage);
+
+prepareDb();
 
 app.post("/generate-image", async (req, res) => {
   try {
@@ -29,6 +31,8 @@ app.post("/generate-image", async (req, res) => {
     console.log(error);
   }
 });
+
+app.post("/savePost", storePost);
 
 app.listen(3000, () => {
   console.log(`listening on port ${3000}`);
