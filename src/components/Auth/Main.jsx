@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import Generate from "../Generate/Generate";
+import Generate from "../Generate/Main";
 import Signup from "./Signup";
 import Login from "./Login";
 import { AuthContext } from "../../context/AuthContext";

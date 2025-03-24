@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import axios from "axios";
 
 const Post = () => {
-  const [title, setTitle] = useState("");
+  const [prompt, setPrompt] = useState("");
+  const [text, setText] = useState("");
   const [post, setPost] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -10,14 +11,15 @@ const Post = () => {
     // console.log("fetching ");
     e.preventDefault();
     setLoading(true);
-    setPost("");
     try {
-      const response = await axios.post("http://localhost:3000/savePost", {
-        title,
-        post,
+      const response = await axios.post("http://localhost:3000/uploadPost", {
+        prompt,
+        text,
       });
       const data = response.data;
-      setPost(data.message);
+      console.log(data);
+
+      setPost(data);
     } catch (error) {
       console.log(error);
     } finally {
@@ -33,15 +35,15 @@ const Post = () => {
           type="text"
           placeholder="Post Title"
           className="w-full p-2 border rounded"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
+          value={prompt}
+          onChange={(e) => setPrompt(e.target.value)}
           required
         />
         <textarea
           placeholder="Write your post here..."
           className="w-full p-2 border rounded"
-          value={post}
-          onChange={(e) => setPost(e.target.value)}
+          value={text}
+          onChange={(e) => setText(e.target.value)}
           required
         />
         <button

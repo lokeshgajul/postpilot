@@ -2,7 +2,6 @@ import axios from "axios";
 import { useContext, useState } from "react";
 import cowImage from "../../assets/cow.png";
 import drawingCat from "../../assets/drawing.gif";
-import { Menu, Button } from "@material-tailwind/react";
 import { ThemeContext } from "../../context/ThemeContext";
 
 const ImageGenerator = () => {
@@ -14,15 +13,16 @@ const ImageGenerator = () => {
   const invokeUrl = "http://localhost:3000/generate-image";
 
   const generateImage = async () => {
+    if (!text) {
+      console.log("Please enter a prompt.");
+      return;
+    }
+
     const payload = {
       text_prompts: [
         {
           text: text,
           weight: 1,
-        },
-        {
-          text: "",
-          weight: -1,
         },
       ],
       cfg_scale: 5,
@@ -34,11 +34,11 @@ const ImageGenerator = () => {
     try {
       setGenerating(true);
       setImage(null);
-      const res = await axios.post(invokeUrl, payload);
 
-      const imageData = res.data.artifacts[0].base64;
+      const response = await axios.post(invokeUrl, payload);
 
-      setImage(`data:image/jpeg;base64,${imageData}`);
+      const imageData = await response.data.url;
+      setImage(imageData);
       setGenerating(false);
     } catch (error) {
       console.log("this is error: ", error);

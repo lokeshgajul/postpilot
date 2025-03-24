@@ -1,38 +1,34 @@
 import express from "express";
 import cors from "cors";
-import { generateImage, getPrompt } from "./Controller/PostController.js";
-import axios from "axios";
-import { prepareDb, storePost } from "./Db/Db.js";
-
+import {
+  generateImage,
+  getPrompt,
+  savePost,
+} from "./Controller/PostController.js";
+import DbConnect from "./Db/Db.js";
+import { v2 as cloudinary } from "cloudinary";
+import dotenv from "dotenv";
 const app = express();
-const invokeUrl =
-  "https://ai.api.nvidia.com/v1/genai/stabilityai/stable-diffusion-xl";
+dotenv.config();
 
-const apikey =
-  "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";
+(async function () {
+  cloudinary.config({
+    cloud_name: process.env.cloud_name,
+    api_key: process.env.api_key,
+    api_secret: process.env.api_secret,
+  });
+});
 
 app.use(cors());
 app.use(express.json());
+app.use("/uploads", express.static("uploads"));
+DbConnect();
 
 app.post("/getPrompt", getPrompt);
 
-prepareDb();
+app.post("/generate-image", generateImage);
 
-app.post("/generate-image", async (req, res) => {
-  try {
-    const repsonse = await axios.post(invokeUrl, req.body, {
-      headers: {
-        Authorization: `Bearer ${apikey}`,
-        Accept: "application/json",
-      },
-    });
-    res.json(repsonse.data);
-  } catch (error) {
-    console.log(error);
-  }
-});
-
-app.post("/savePost", storePost);
+app.post("/uploadPost", savePost);
 
 app.listen(3000, () => {
   console.log(`listening on port ${3000}`);
